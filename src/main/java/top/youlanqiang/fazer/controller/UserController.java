@@ -1,6 +1,7 @@
 package top.youlanqiang.fazer.controller;
 
-import com.google.gson.GsonBuilder;
+
+import org.pac4j.jax.rs.annotations.Pac4JSecurity;
 
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
@@ -12,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/user")
 @Singleton
+@Pac4JSecurity(authorizers = "hello")
 public class UserController {
 
     @GET
