@@ -1,6 +1,7 @@
 package top.youlanqiang.fazer.controller;
 
 
+import org.pac4j.core.authorization.authorizer.DefaultAuthorizers;
 import org.pac4j.jax.rs.annotations.Pac4JSecurity;
 
 import javax.inject.Singleton;
@@ -13,7 +14,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/user")
 @Singleton
-@Pac4JSecurity(authorizers = "hello")
+@Pac4JSecurity(authorizers = DefaultAuthorizers.IS_AUTHENTICATED)
 public class UserController {
 
     @GET
