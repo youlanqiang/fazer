@@ -1,24 +1,39 @@
 package top.youlanqiang.fazer;
 
 
+import com.google.common.collect.Sets;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import io.undertow.Undertow;
-import io.undertow.security.api.AuthenticationMode;
-import io.undertow.security.handlers.SecurityInitialHandler;
-import top.youlanqiang.fazer.route.FazerRouters;
+import io.undertow.servlet.api.DeploymentInfo;
+import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
+import top.youlanqiang.fazer.controller.UserController;
 
 
-public class WebApplication  {
+import javax.ws.rs.core.Application;
+import java.util.Set;
+
+
+public class WebApplication  extends Application {
 
     public static void main(String[] args) {
+        UndertowJaxrsServer
+                server = new UndertowJaxrsServer();
+        server.start(Undertow.builder().addHttpListener(8081,"localhost"));
 
-        Undertow undertow = Undertow.builder()
-                .addHttpListener(8080,"localhost")
-                .setHandler(new SecurityInitialHandler(AuthenticationMode.CONSTRAINT_DRIVEN,null,FazerRouters.get()))
-                .build();
-
-        undertow.start();
+        DeploymentInfo info = server.undertowDeployment(WebApplication.class)
+                .setClassLoader(WebApplication.class.getClassLoader())
+                .setContextPath("")
+                .setDeploymentName("fazer");
+        server.deploy(info);
 
     }
 
-
+    @Override
+    public Set<Object> getSingletons() {
+        Injector injector = Guice.createInjector(new GuiceBindModule());
+        Set<Object> set = Sets.newHashSet();
+        set.add(injector.getInstance(UserController.class));
+        return set;
+    }
 }
