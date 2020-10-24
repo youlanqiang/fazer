@@ -7,6 +7,8 @@ import com.google.inject.Injector;
 import io.undertow.Undertow;
 import io.undertow.servlet.api.DeploymentInfo;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
+import top.youlanqiang.fazer.common.config.GuiceBindModule;
+import top.youlanqiang.fazer.common.exception.ExceptionController;
 import top.youlanqiang.fazer.controller.UserController;
 
 
@@ -27,6 +29,11 @@ public class WebApplication  extends Application {
                 .setDeploymentName("fazer");
         server.deploy(info);
 
+    }
+
+    @Override
+    public Set<Class<?>> getClasses() {
+        return Sets.newHashSet(ExceptionController.class);
     }
 
     @Override

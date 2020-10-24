@@ -1,8 +1,6 @@
 package top.youlanqiang.fazer.controller;
 
 
-import org.pac4j.core.authorization.authorizer.DefaultAuthorizers;
-import org.pac4j.jax.rs.annotations.Pac4JSecurity;
 
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
@@ -14,13 +12,12 @@ import javax.ws.rs.core.Response;
 
 @Path("/user")
 @Singleton
-@Pac4JSecurity(authorizers = DefaultAuthorizers.IS_AUTHENTICATED)
 public class UserController {
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUser(@PathParam("id") Long id){
+    public Response getUser(@PathParam("id") Long id) throws Exception {
         return Response.status(200).entity("hello world").build();
     }
 }
