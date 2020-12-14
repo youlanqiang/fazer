@@ -2,6 +2,8 @@ package top.youlanqiang.fazer.controller;
 
 
 
+import org.eclipse.jgit.api.Git;
+
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,6 +20,7 @@ public class UserController {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUser(@PathParam("id") Long id) throws Exception {
+
         return Response.status(200).entity("hello world").build();
     }
 }

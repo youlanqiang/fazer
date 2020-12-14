@@ -9,6 +9,7 @@ import io.undertow.servlet.api.DeploymentInfo;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import top.youlanqiang.fazer.common.config.GuiceBindModule;
 import top.youlanqiang.fazer.common.exception.ExceptionController;
+import top.youlanqiang.fazer.controller.GitController;
 import top.youlanqiang.fazer.controller.UserController;
 
 
@@ -41,6 +42,7 @@ public class WebApplication  extends Application {
         Injector injector = Guice.createInjector(new GuiceBindModule());
         Set<Object> set = Sets.newHashSet();
         set.add(injector.getInstance(UserController.class));
+        set.add(injector.getInstance(GitController.class));
         return set;
     }
 }
