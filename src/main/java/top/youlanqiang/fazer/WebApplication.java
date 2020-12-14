@@ -5,12 +5,14 @@ import com.google.common.collect.Sets;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import io.undertow.Undertow;
+import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import top.youlanqiang.fazer.common.config.GuiceBindModule;
 import top.youlanqiang.fazer.common.exception.ExceptionController;
 import top.youlanqiang.fazer.controller.GitController;
 import top.youlanqiang.fazer.controller.UserController;
+import top.youlanqiang.fazer.git.GitServlet;
 
 
 import javax.ws.rs.core.Application;
@@ -27,7 +29,10 @@ public class WebApplication  extends Application {
         DeploymentInfo info = server.undertowDeployment(WebApplication.class)
                 .setClassLoader(WebApplication.class.getClassLoader())
                 .setContextPath("")
-                .setDeploymentName("fazer");
+                .setDeploymentName("fazer")
+                .addServlets(Servlets.servlet(GitServlet.class).addInitParam("message","hello world").addMapping("/git-servlet"));
+
+
         server.deploy(info);
 
     }
