@@ -15,8 +15,9 @@ public class GitServlet extends org.eclipse.jgit.http.server.GitServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-      log.info("init ");
+        log.info("init ");
         setRepositoryResolver(new GitHttpResolver());
         super.init(config);
     }
+
 }

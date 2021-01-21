@@ -30,7 +30,8 @@ public class WebApplication  extends Application {
                 .setClassLoader(WebApplication.class.getClassLoader())
                 .setContextPath("")
                 .setDeploymentName("fazer")
-                .addServlets(Servlets.servlet("git",GitServlet.class).addInitParam("base-path","./").addMapping("/git-servlet/*"));
+                .addServlets(Servlets.servlet("git",GitServlet.class).addInitParam("base-path","./")
+                        .addMapping("/git-servlet/*"));
 
 
         server.deploy(info);

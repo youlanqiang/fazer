@@ -1,6 +1,5 @@
 package top.youlanqiang.fazer.git;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.internal.storage.file.FileRepository;
@@ -27,7 +26,7 @@ public class GitHttpResolver implements RepositoryResolver<HttpServletRequest> {
         log.info("path:" + req.getServletPath());
         log.info("name:"+name);
         try {
-            return new FileRepository("");
+            return new FileRepository("/Users/youlanqiang/IdeaProjects/fazer/testUser/hello");
         } catch (IOException e) {
             e.printStackTrace();
         }
