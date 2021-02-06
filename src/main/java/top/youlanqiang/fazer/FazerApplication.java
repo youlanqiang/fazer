@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
  */
 
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-@ServletComponentScan
 @EnableWebSecurity
 public class FazerApplication  {
 

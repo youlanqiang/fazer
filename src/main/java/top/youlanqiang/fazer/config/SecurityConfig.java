@@ -1,4 +1,4 @@
-package top.youlanqiang.fazer.security;
+package top.youlanqiang.fazer.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
