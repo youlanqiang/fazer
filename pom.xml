@@ -33,6 +33,11 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
@@ -41,13 +46,6 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-
-
-        <dependency>
-            <groupId>org.eclipse.jgit</groupId>
-            <artifactId>org.eclipse.jgit</artifactId>
-            <version>5.10.0.202012080955-r</version>
-        </dependency>
 
         <!-- SpringBoot 核心包 -->
         <dependency>
@@ -80,8 +78,6 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional> <!-- 表示依赖不会传递 -->
         </dependency>
-
-
 
 
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->

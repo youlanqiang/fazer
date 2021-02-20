@@ -8,6 +8,8 @@ import java.util.Collection;
 
 public class BaseUser implements UserDetails {
 
+    private String id;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
