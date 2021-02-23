@@ -6,3 +6,9 @@ spring:
     user:
       name: root
       password: root
+  datasource:
+    driver-class-name: org.apache.derby.iapi.jdbc.Driver42
+    url: jdbc:derby:testDb;create=true
+  jpa:
+    hibernate:
+      ddl-auto: update
