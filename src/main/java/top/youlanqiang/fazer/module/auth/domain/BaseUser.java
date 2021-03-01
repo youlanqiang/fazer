@@ -1,14 +1,19 @@
 package top.youlanqiang.fazer.module.auth.domain;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import top.youlanqiang.fazer.common.domain.BaseDomain;
 
+import javax.persistence.Table;
 import java.util.Collection;
 
 
-public class BaseUser implements UserDetails {
+@Data
+@Table(name = "base_user")
+public class BaseUser extends BaseDomain implements UserDetails {
 
-    private String id;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
