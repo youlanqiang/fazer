@@ -1,4 +1,4 @@
-package top.youlanqiang.fazer.config;
+package top.youlanqiang.fazer.common.domain.generator;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
