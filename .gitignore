@@ -1,3 +1,6 @@
+# derby database
+/fazerdb
+
 # Project exclude paths
 /target/
 ### macOS template

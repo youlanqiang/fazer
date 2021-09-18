@@ -15,12 +15,13 @@ import top.youlanqiang.fazer.common.utils.SpringUtils;
  * created in 2021/1/21 18:55
  */
 
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication
 @EnableWebSecurity
 public class FazerApplication  {
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(FazerApplication.class, args);
+        aware(context);
     }
 
 

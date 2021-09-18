@@ -1,14 +1,9 @@
 server:
-  port: 8081
-
+  port: 8772
 spring:
-  security:
-    user:
-      name: root
-      password: root
   datasource:
-    driver-class-name: org.apache.derby.iapi.jdbc.Driver42
-    url: jdbc:derby:testDb;create=true
+    driver-class-name: org.apache.derby.iapi.jdbc.AutoloadedDriver
+    url: jdbc:derby:fazerdb;create=true
   jpa:
     hibernate:
       ddl-auto: update

@@ -8,14 +8,10 @@ import org.springframework.context.ApplicationContext;
  */
 public final class SpringUtils {
 
-    private static final SpringUtils HOLD = null;
-
     private static ApplicationContext context;
 
     private SpringUtils(){
-        if(HOLD == null){
-            throw new RuntimeException("Reject Reflection.");
-        }
+        throw new RuntimeException("Reject Reflection.");
     }
 
     public static void setContext(final ApplicationContext applicationContext){
@@ -27,6 +23,9 @@ public final class SpringUtils {
     }
 
     public static <T>  T getBean(Class<T> target){
+        if(context == null){
+            throw new NullPointerException("application context is Null!");
+        }
         return context.getBean(target);
     }
 
