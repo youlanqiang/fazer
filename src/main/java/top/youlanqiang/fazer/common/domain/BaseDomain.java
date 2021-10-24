@@ -1,5 +1,6 @@
 package top.youlanqiang.fazer.common.domain;
 
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 
 
 @MappedSuperclass
-@Entity
+@Data
 @EntityListeners(AuditingEntityListener.class)
 public class BaseDomain implements Serializable {
 

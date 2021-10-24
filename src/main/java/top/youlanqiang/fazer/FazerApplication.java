@@ -4,7 +4,6 @@ package top.youlanqiang.fazer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,7 +15,6 @@ import top.youlanqiang.fazer.common.utils.SpringUtils;
  */
 
 @SpringBootApplication
-@EnableWebSecurity
 public class FazerApplication  {
 
     public static void main(String[] args) {
