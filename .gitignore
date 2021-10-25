@@ -1,5 +1,6 @@
 # derby database
 /fazerdb
+*.pid
 
 # Project exclude paths
 /target/
