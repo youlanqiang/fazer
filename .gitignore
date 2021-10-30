@@ -1,7 +1,7 @@
 # derby database
 /fazerdb
-*.pid
 
+./gradle
 # Project exclude paths
 /target/
 ### macOS template
