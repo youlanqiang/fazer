@@ -36,4 +36,6 @@ public class BaseUserServiceImpl implements IBaseUserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;
     }
+
+
 }
