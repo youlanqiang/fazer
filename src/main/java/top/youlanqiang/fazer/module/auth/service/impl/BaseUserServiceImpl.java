@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import top.youlanqiang.fazer.module.auth.domain.BaseUser;
 import top.youlanqiang.fazer.module.auth.repository.BaseAuthRepository;
 import top.youlanqiang.fazer.module.auth.repository.BaseGroupRepository;
 import top.youlanqiang.fazer.module.auth.repository.BaseUserRepository;
@@ -34,7 +35,8 @@ public class BaseUserServiceImpl implements IBaseUserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        BaseUser user = userRepository.findByUsername(username);
+        return user;
     }
 
 

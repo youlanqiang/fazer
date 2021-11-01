@@ -17,6 +17,7 @@ import top.youlanqiang.fazer.common.utils.SpringUtils;
 public class FazerApplication  {
 
     public static void main(String[] args) {
+
         ApplicationContext context = SpringApplication.run(FazerApplication.class, args);
         aware(context);
     }
