@@ -1,6 +1,6 @@
 # derby database
 /fazerdb
-
+/logs
 ./gradle
 # Project exclude paths
 /target/

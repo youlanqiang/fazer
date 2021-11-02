@@ -8,10 +8,15 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * @author youlanqiang
@@ -39,7 +44,8 @@ public class LoginValidateAuthenticationProvider implements AuthenticationProvid
         System.out.println("username = " + username + "  password:" + password);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
-            return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            Collection<? extends GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+            return new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
         }
         return null;
     }
