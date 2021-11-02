@@ -36,6 +36,9 @@ public class BaseUserServiceImpl implements IBaseUserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         BaseUser user = userRepository.findByUsername(username);
+        if(user == null){
+            throw new UsernameNotFoundException(username);
+        }
         return user;
     }
 

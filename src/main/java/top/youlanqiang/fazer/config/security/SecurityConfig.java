@@ -23,6 +23,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 
+import javax.annotation.Resource;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
@@ -40,9 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    然后，在Http请求中使用Authorization作为一个Header，“Basic YWtaW46YWRtaW4=“作为Header的值，发送给服务端。（注意这里使用Basic+空格+加密串）
 //    服务器在收到这样的请求时，到达BasicAuthenticationFilter过滤器，将提取“ Authorization”的Header值，并使用用于验证用户身份的相同算法Base64进行解码。
 //    解码结果与登录验证的用户名密码匹配，匹配成功则可以继续过滤器后续的访问。
-
-    
-
 
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
@@ -77,22 +75,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new NimbusJwtEncoder(jwkSource);
     }
 
+    @Resource
+    LoginValidateAuthenticationProvider loginValidateAuthenticationProvider;
+
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(auth -> auth.antMatchers("/token").permitAll().anyRequest().authenticated())
-                .csrf(csrf -> csrf.ignoringAntMatchers("/token") )
-                .httpBasic(Customizer.withDefaults())
+        http.authorizeRequests((auth) -> auth.antMatchers("/token").permitAll()
+                                            .anyRequest().authenticated())
+                .csrf((csrf) -> csrf.ignoringAntMatchers("/token") )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling(exceptions ->
+                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling((exceptions) ->
                         exceptions.authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
                                 .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
-                );
+                )
+                .formLogin(configurer->{
+                    configurer.loginProcessingUrl("/token");
+                }).authenticationProvider(loginValidateAuthenticationProvider);
 
     }
+
+
+
+
 
 
     

@@ -28,6 +28,7 @@ public class TokenController {
 
     @PostMapping("/token")
     public String token(Authentication authentication){
+    System.out.println("zhix");
         Instant now = Instant.now();
         long expiry = 36000L;
         // @formatter:off
