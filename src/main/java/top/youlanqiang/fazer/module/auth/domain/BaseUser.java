@@ -18,6 +18,9 @@ import java.util.Collection;
 @Table(name = "base_user")
 public class BaseUser extends BaseDomain implements UserDetails {
 
+    @Column(name = "nickname")
+    private String nickname;
+
     @Column(name = "username")
     private String username;
 

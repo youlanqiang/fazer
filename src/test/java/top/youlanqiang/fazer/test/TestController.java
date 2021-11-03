@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import top.youlanqiang.fazer.module.auth.domain.BaseUser;
 import top.youlanqiang.fazer.module.auth.repository.BaseUserRepository;
 
 /**
@@ -16,10 +18,20 @@ public class TestController {
     @Autowired
     BaseUserRepository repository;
 
+    @Autowired
+    PasswordEncoder encoder;
+
     @Test
     @Tag("测试用例-1")
     public void test1(){
-        repository.findById("111");
+        BaseUser user = new BaseUser();
+
+        user.setEnabled(true);
+        user.setNickname("admin");
+        user.setPassword(encoder.encode("123456"));
+        user.setUsername("admin");
+
+        repository.save(user);
         System.out.println("测试构建");
     }
 }

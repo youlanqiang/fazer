@@ -27,6 +27,9 @@ public class JpaConfig {
     public AuditorAware<String> getAuditorAware() {
         //自动填充userId
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return () -> Optional.of(authentication.getPrincipal().toString());
+        if(authentication == null){
+            return ()->Optional.of("admin");
+        }
+        return () -> Optional.of( authentication.getPrincipal().toString());
     }
 }

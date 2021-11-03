@@ -78,6 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     LoginValidateAuthenticationProvider loginValidateAuthenticationProvider;
 
+    @Resource
+    CustomAuthenticationSuccessHandler successHandler;
 
 
     @Override
@@ -86,14 +88,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests((auth) -> auth.antMatchers("/token").permitAll()
                                             .anyRequest().authenticated())
                 .csrf((csrf) -> csrf.ignoringAntMatchers("/token") )
-                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+//                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling((exceptions) ->
                         exceptions.authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
                                 .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
                 )
                 .formLogin(configurer->{
-                    configurer.loginProcessingUrl("/token");
+                    configurer.successHandler(successHandler).loginProcessingUrl("/token").usernameParameter("username").passwordParameter("password");
                 }).authenticationProvider(loginValidateAuthenticationProvider);
 
     }

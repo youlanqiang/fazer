@@ -16,6 +16,6 @@ public class SnowflakeIdentifierGenerator implements IdentifierGenerator {
     @Override
     public Serializable generate(SharedSessionContractImplementor sharedSessionContractImplementor,
                                  Object o) throws HibernateException {
-        return Snowflake.nextId();
+        return Long.toString(Snowflake.nextId());
     }
 }
