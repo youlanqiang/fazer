@@ -14,6 +14,8 @@ import javax.persistence.Table;
 @Table(name = "base_group")
 public class BaseGroup extends BaseDomain {
 
+
+
     @Column(name = "info")
     private String info;
 

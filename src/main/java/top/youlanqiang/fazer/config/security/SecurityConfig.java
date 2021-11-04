@@ -81,21 +81,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     CustomAuthenticationSuccessHandler successHandler;
 
+    @Resource
+    CustomAuthenticationFailureHandler failureHandler;
+
+    @Resource
+    CustomAccessDeniedHandler accessDeniedHandler;
+
+    @Resource
+    CustomAuthenticationEntryPoint authenticationEntryPoint;
+
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests((auth) -> auth.antMatchers("/token").permitAll()
+        http.authorizeRequests((auth) -> auth.antMatchers("/login").anonymous()
                                             .anyRequest().authenticated())
-                .csrf((csrf) -> csrf.ignoringAntMatchers("/token") )
+                .csrf((csrf) -> csrf.ignoringAntMatchers("/login") )
 //                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling((exceptions) ->
-                        exceptions.authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
-                                .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
+                        exceptions.authenticationEntryPoint(authenticationEntryPoint)
+                                .accessDeniedHandler(accessDeniedHandler)
                 )
                 .formLogin(configurer->{
-                    configurer.successHandler(successHandler).loginProcessingUrl("/token").usernameParameter("username").passwordParameter("password");
+                    configurer.failureHandler(failureHandler).successHandler(successHandler).loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password");
                 }).authenticationProvider(loginValidateAuthenticationProvider);
 
     }

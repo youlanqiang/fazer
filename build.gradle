@@ -24,10 +24,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.projectlombok:lombok:1.18.16'
+    implementation 'com.google.guava:guava:31.0.1-jre'
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
     implementation group: 'org.apache.derby', name: 'derby', version: '10.15.2.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.3'
-    // https://mvnrepository.com/artifact/org.apache.derby/derby
 }
 
 group = 'top.youlanqiang'

@@ -4,6 +4,9 @@ package top.youlanqiang.fazer.common.domain;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Data
 public final class AjaxResult {
 
@@ -19,6 +22,10 @@ public final class AjaxResult {
         this.code = code;
         this.msg = msg;
         this.data = data;
+    }
+
+    public static AjaxResult create(int code, String msg){
+        return create(code, msg, null);
     }
 
     public static AjaxResult create(int code, String msg, Object data){
@@ -48,6 +55,5 @@ public final class AjaxResult {
     public static AjaxResult error(){
         return error(null);
     }
-
 
 }
