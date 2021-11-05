@@ -75,18 +75,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new NimbusJwtEncoder(jwkSource);
     }
 
+    // 登陆认证
     @Resource
     LoginValidateAuthenticationProvider loginValidateAuthenticationProvider;
 
+    // 登陆成功处理
     @Resource
     CustomAuthenticationSuccessHandler successHandler;
 
+    // 登陆失败处理
     @Resource
     CustomAuthenticationFailureHandler failureHandler;
 
+    // 自定义权限不足处理器
     @Resource
     CustomAccessDeniedHandler accessDeniedHandler;
 
+    //用来解决匿名用户访问无权限资源时的异常
     @Resource
     CustomAuthenticationEntryPoint authenticationEntryPoint;
 
@@ -98,7 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests((auth) -> auth.antMatchers("/login").anonymous()
                                             .anyRequest().authenticated())
                 .csrf((csrf) -> csrf.ignoringAntMatchers("/login") )
-//                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling((exceptions) ->
                         exceptions.authenticationEntryPoint(authenticationEntryPoint)

@@ -7,6 +7,7 @@ import top.youlanqiang.fazer.common.domain.BaseDomain;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 
 @EqualsAndHashCode(callSuper = true)
@@ -25,6 +26,16 @@ public class BaseAuth extends BaseDomain implements GrantedAuthority {
 
     @Column(name = "authority")
     private String authority;
+
+    @Column(name = "sort", columnDefinition = "int default 0")
+    private Integer sort;
+
+
+    @ManyToMany(targetEntity = BaseRole.class, fetch = FetchType.LAZY)
+    @JoinTable(name = "base_role_auth",
+            joinColumns = {@JoinColumn(name = "auth_id",referencedColumnName = "uid")},
+            inverseJoinColumns = {@JoinColumn(name="role_id", referencedColumnName = "uid")})
+    private Set<BaseRole> roleList;
 
     @Override
     public String getAuthority() {
