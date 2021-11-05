@@ -9,6 +9,7 @@ import com.nimbusds.jose.proc.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -101,6 +102,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests((auth) -> auth.antMatchers("/login").anonymous()
+                                            .antMatchers(HttpMethod.GET, "/").permitAll()
+                                            .antMatchers("/swagger-ui/**","/swagger-ui.html", "/**/api-docs/**").permitAll()
                                             .anyRequest().authenticated())
                 .csrf((csrf) -> csrf.ignoringAntMatchers("/login") )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)

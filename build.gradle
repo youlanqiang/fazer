@@ -13,6 +13,8 @@ plugins {
 repositories {
     mavenLocal()
     mavenCentral()
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    maven { url 'https://maven.aliyun.com/repository/spring/'}
     maven { url "https://repo.spring.io/milestone" }
 }
 
@@ -25,6 +27,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.projectlombok:lombok:1.18.16'
     implementation 'com.google.guava:guava:31.0.1-jre'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.5.12'
+
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
     implementation group: 'org.apache.derby', name: 'derby', version: '10.15.2.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.3'

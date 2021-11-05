@@ -4,7 +4,7 @@ logging:
     org.springframework.web: INFO
     org.springframework.security: INFO
 server:
-  port: 8772
+  port: 8080
 spring:
   datasource:
     driver-class-name: org.apache.derby.iapi.jdbc.AutoloadedDriver
@@ -17,3 +17,6 @@ spring:
 jwt:
   private.key: classpath:app.key
   public.key: classpath:app.pub
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
