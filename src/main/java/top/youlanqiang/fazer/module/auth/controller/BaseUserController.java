@@ -16,6 +16,7 @@ import top.youlanqiang.fazer.common.domain.AjaxResult;
 @Tag(name = "用户管理", description = "用户管理")
 public class BaseUserController {
 
+
     @Operation( summary = "测试token令牌",security = @SecurityRequirement(name = "BearerAuth"))
     @GetMapping("/test")
     public AjaxResult test(){

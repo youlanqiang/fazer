@@ -59,6 +59,7 @@ public class BaseUser extends BaseDomain implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        // 使用jpa懒加载要在对应方法加上 @Transaction 注解
         Set<BaseAuth> authList = new HashSet<>();
         Set<BaseRole> roles = getRoleList();
         for (BaseRole role : roles) {

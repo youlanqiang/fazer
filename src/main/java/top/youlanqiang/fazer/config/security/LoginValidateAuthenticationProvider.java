@@ -1,22 +1,20 @@
 package top.youlanqiang.fazer.config.security;
 
-import org.hibernate.event.service.spi.JpaBootstrapSensitive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsChecker;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * @author youlanqiang
@@ -29,6 +27,8 @@ public class LoginValidateAuthenticationProvider implements AuthenticationProvid
 
     UserDetailsService userDetailsService;
 
+    private final UserDetailsChecker checker =  new AccountStatusUserDetailsChecker();
+
     @Lazy
     @Autowired
     public LoginValidateAuthenticationProvider(PasswordEncoder encoder,@Qualifier("baseUserServiceImpl") UserDetailsService userDetailsService){
@@ -38,11 +38,14 @@ public class LoginValidateAuthenticationProvider implements AuthenticationProvid
 
 
     @Override
+    @Transactional
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = (String) authentication.getPrincipal();
         String password = (String) authentication.getCredentials();
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
+            // 检查UserDetails的状态
+            checker.check(userDetails);
             return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         }
         return null;
