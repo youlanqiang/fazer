@@ -1,5 +1,6 @@
 package top.youlanqiang.fazer.module.auth.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "base_auth")
+@Schema(description = "权限标识")
 public class BaseAuth extends BaseDomain implements GrantedAuthority {
 
 
@@ -21,11 +23,15 @@ public class BaseAuth extends BaseDomain implements GrantedAuthority {
     @JoinColumn(name = "parent_id", referencedColumnName = "uid")
     private List<BaseAuth> auths;
 
+
     @Column(name = "info")
+    @Schema(description = "备注")
     private String info;
 
     @Column(name = "authority")
+    @Schema(description = "权限标识")
     private String authority;
+
 
     @Column(name = "sort", columnDefinition = "int default 0")
     private Integer sort;
@@ -40,5 +46,12 @@ public class BaseAuth extends BaseDomain implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return authority;
+    }
+
+
+    public enum AuthType{
+        MENU,
+        BUTTON,
+        URL
     }
 }
