@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,6 +23,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
 import java.security.interfaces.RSAPrivateKey;
@@ -77,6 +79,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new NimbusJwtEncoder(jwkSource);
     }
 
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    //注册到bean中
+    @Bean
+    public CustomLoginFilter customLoginFilter(){
+        return new CustomLoginFilter();
+    }
+
     // 登陆认证
     @Resource
     LoginValidateAuthenticationProvider loginValidateAuthenticationProvider;
@@ -114,8 +128,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                 .accessDeniedHandler(accessDeniedHandler)
                 )
                 .formLogin(configurer->{
-                    configurer.failureHandler(failureHandler).successHandler(successHandler).loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password");
-                }).authenticationProvider(loginValidateAuthenticationProvider);
+                    configurer.failureHandler(failureHandler).successHandler(successHandler).loginProcessingUrl("/login");
+                }).authenticationProvider(loginValidateAuthenticationProvider)
+                .addFilterAt(customLoginFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }
 

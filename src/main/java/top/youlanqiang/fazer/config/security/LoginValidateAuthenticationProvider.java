@@ -40,8 +40,10 @@ public class LoginValidateAuthenticationProvider implements AuthenticationProvid
     @Override
     @Transactional
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+
         String username = (String) authentication.getPrincipal();
         String password = (String) authentication.getCredentials();
+        System.out.println(username+" "+password);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
             // 检查UserDetails的状态
