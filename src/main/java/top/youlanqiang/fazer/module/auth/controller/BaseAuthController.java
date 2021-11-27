@@ -3,6 +3,7 @@ package top.youlanqiang.fazer.module.auth.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +22,10 @@ import top.youlanqiang.fazer.module.auth.service.IBaseAuthService;
 @RestController
 @RequestMapping("/auth")
 @Slf4j
+@AllArgsConstructor
 public class BaseAuthController {
 
     private final IBaseAuthService authService;
-
-    @Autowired
-    public BaseAuthController(IBaseAuthService authService) {
-        this.authService = authService;
-    }
 
 
     @Operation( summary = "获取对应id的权限",security = @SecurityRequirement(name = "BearerAuth"))

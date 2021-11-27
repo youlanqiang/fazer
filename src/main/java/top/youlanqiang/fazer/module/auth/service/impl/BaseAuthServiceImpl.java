@@ -1,5 +1,6 @@
 package top.youlanqiang.fazer.module.auth.service.impl;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -12,14 +13,10 @@ import top.youlanqiang.fazer.module.auth.service.IBaseAuthService;
  * created in 2021/11/21 11:17 下午
  */
 @Service
+@AllArgsConstructor
 public class BaseAuthServiceImpl implements IBaseAuthService {
 
     private final BaseAuthRepository authRepository;
-
-    @Autowired
-    public BaseAuthServiceImpl(BaseAuthRepository authRepository) {
-        this.authRepository = authRepository;
-    }
 
 
     public BaseAuth getAuthById(String id){

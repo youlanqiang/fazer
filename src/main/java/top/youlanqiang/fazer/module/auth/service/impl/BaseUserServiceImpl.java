@@ -1,5 +1,6 @@
 package top.youlanqiang.fazer.module.auth.service.impl;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,23 +16,15 @@ import top.youlanqiang.fazer.module.auth.service.IBaseUserService;
  * created in 2021/10/27 11:00 下午
  */
 @Service
+@AllArgsConstructor
 public class BaseUserServiceImpl implements IBaseUserService {
 
-    BaseUserRepository userRepository;
+    private final BaseUserRepository userRepository;
 
-    BaseGroupRepository groupRepository;
+    private final BaseGroupRepository groupRepository;
 
+    private final BaseAuthRepository authRepository;
 
-    BaseAuthRepository authRepository;
-
-    @Autowired
-    public BaseUserServiceImpl(BaseUserRepository userRepository,
-                               BaseGroupRepository groupRepository,
-                               BaseAuthRepository authRepository){
-        this.userRepository = userRepository;
-        this.groupRepository = groupRepository;
-        this.authRepository = authRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -85,12 +85,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    //注册到bean中
-    @Bean
-    public CustomLoginFilter customLoginFilter(){
-        return new CustomLoginFilter();
-    }
-
     // 登陆认证
     @Resource
     LoginValidateAuthenticationProvider loginValidateAuthenticationProvider;
@@ -129,8 +123,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 )
                 .formLogin(configurer->{
                     configurer.failureHandler(failureHandler).successHandler(successHandler).loginProcessingUrl("/login");
-                }).authenticationProvider(loginValidateAuthenticationProvider)
-                .addFilterAt(customLoginFilter(), UsernamePasswordAuthenticationFilter.class);
+                }).authenticationProvider(loginValidateAuthenticationProvider);
 
     }
 
