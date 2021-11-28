@@ -1,5 +1,6 @@
 package top.youlanqiang.fazer.config.security;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  * created in 2021/11/2 8:34 下午
  */
 @Component
+@Slf4j
 public class LoginValidateAuthenticationProvider implements AuthenticationProvider {
 
     PasswordEncoder passwordEncoder;
@@ -43,11 +45,11 @@ public class LoginValidateAuthenticationProvider implements AuthenticationProvid
 
         String username = (String) authentication.getPrincipal();
         String password = (String) authentication.getCredentials();
-        System.out.println(username+" "+password);
+        log.info("username:{} password:{}", username, password);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
             // 检查UserDetails的状态
-            checker.check(userDetails);
+            //checker.check(userDetails);
             return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         }
         return null;

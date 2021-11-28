@@ -1,6 +1,7 @@
 package top.youlanqiang.fazer.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -20,6 +21,7 @@ import java.nio.charset.StandardCharsets;
  * AuthenticationEntryPoint 用来解决匿名用户访问无权限资源时的异常
  *
  */
+@Slf4j
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

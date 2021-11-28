@@ -2,6 +2,7 @@ package top.youlanqiang.fazer.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
  * 决定 响应JSON还是跳转页面，或者认证成功后进行其他处理
  */
 @Component
+@Slf4j
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Resource
@@ -44,7 +46,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-
         Instant now = Instant.now();
         long expiry = 36000L;
         // @formatter:off

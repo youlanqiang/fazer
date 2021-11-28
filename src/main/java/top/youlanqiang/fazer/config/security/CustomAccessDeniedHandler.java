@@ -1,6 +1,7 @@
 package top.youlanqiang.fazer.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -21,6 +22,7 @@ import java.nio.charset.StandardCharsets;
  * AccessDeineHandler 用来解决认证过的用户访问无权限资源时的异常
  */
 @Component
+@Slf4j
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     @Resource

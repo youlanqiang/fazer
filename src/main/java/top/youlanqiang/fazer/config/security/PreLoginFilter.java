@@ -2,11 +2,11 @@ package top.youlanqiang.fazer.config.security;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.filter.GenericFilterBean;
 import top.youlanqiang.fazer.common.utils.ParameterRequestWrapper;
@@ -21,7 +21,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-/** @author youlanqiang created in 2021/11/27 11:23 上午 预登陆控制器 */
+/**
+ * @author youlanqiang created in 2021/11/27 11:23 上午 预登陆控制器
+ * 注意 request的inputStream流只能读取一次!
+ * 注意 chain.doFilter 只能执行一次!
+ */
+@Slf4j
 public class PreLoginFilter extends GenericFilterBean {
 
   private static final String USERNAME_KEY = UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
@@ -43,7 +48,6 @@ public class PreLoginFilter extends GenericFilterBean {
   public PreLoginFilter(
       String loginProcessingUrl, Collection<LoginPostProcessor> loginPostProcessors, ObjectMapper objectMapper) {
     this.objectMapper = objectMapper;
-    Assert.notNull(loginPostProcessors, "loginProcessUrl must not be null");
     requestMatcher = new AntPathRequestMatcher(loginProcessingUrl, HttpMethod.POST.name());
     processorMap.put(LoginTypeEnum.JSON, defaultProcessor());
 
@@ -58,10 +62,23 @@ public class PreLoginFilter extends GenericFilterBean {
       throws IOException, ServletException {
     if(request instanceof HttpServletRequest){
       ParameterRequestWrapper wrapper = new ParameterRequestWrapper((HttpServletRequest) request);
+      if (requestMatcher.matches((HttpServletRequest) request)) {
+        LoginTypeEnum type = getType(request);
 
+        LoginPostProcessor loginPostProcessor = processorMap.get(type);
+        if(loginPostProcessor == null){
+          loginPostProcessor = defaultProcessor();
+        }
+        String username = loginPostProcessor.obtainUsername(request);
+        String password = loginPostProcessor.obtainPassword(request);
+        wrapper.addParameter(USERNAME_KEY, username);
+        wrapper.addParameter(PASSWORD_KEY, password);
+
+      }
+      chain.doFilter(wrapper, response);
+    }else{
+      chain.doFilter(request, response);
     }
-
-
 
   }
 
@@ -71,7 +88,7 @@ public class PreLoginFilter extends GenericFilterBean {
       try{
         load(request);
         loginType = jsonNode.get(LOGIN_TYPE_KEY).asText();
-      }catch (IOException e){
+      }catch (Exception e){
         //如果读取不到request body的值则默认是form表单提交
         return LoginTypeEnum.FORM;
       }
@@ -92,7 +109,6 @@ public class PreLoginFilter extends GenericFilterBean {
    */
   private LoginPostProcessor defaultProcessor() {
     return new LoginPostProcessor() {
-      JsonNode jsonNode;
 
       @Override
       public LoginTypeEnum getLoginType() {
@@ -100,31 +116,28 @@ public class PreLoginFilter extends GenericFilterBean {
       }
 
       @Override
-      public String obtainUsername(ServletRequest request)  {
-//        String json = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
-        try{
-          loadJson(request);
+      public String obtainUsername(ServletRequest request) {
+        //        String json = StreamUtils.copyToString(request.getInputStream(),
+        // StandardCharsets.UTF_8);
+        try {
+          load(request);
           return jsonNode.get(USERNAME_KEY).asText();
-        }catch (IOException e){
+        } catch (IOException e) {
+          e.printStackTrace();
           throw new RuntimeException("can not read request input steam");
         }
       }
 
       @Override
       public String obtainPassword(ServletRequest request) {
-        try{
-          loadJson(request);
+        try {
+          load(request);
           return jsonNode.get(PASSWORD_KEY).asText();
-        }catch (IOException e){
+        } catch (IOException e) {
           throw new RuntimeException("can not read request input steam");
         }
       }
 
-      private void loadJson(ServletRequest request) throws IOException{
-        if(jsonNode == null){
-          jsonNode =  objectMapper.readTree(request.getInputStream());
-        }
-      }
     };
   }
 }

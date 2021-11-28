@@ -1,5 +1,6 @@
 package top.youlanqiang.fazer.config.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -23,6 +24,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
@@ -105,7 +107,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     CustomAuthenticationEntryPoint authenticationEntryPoint;
 
+    @Resource
+    ObjectMapper objectMapper;
 
+    @Bean
+    PreLoginFilter preLoginFilter(){
+        return new PreLoginFilter("/login", null, objectMapper);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -123,7 +131,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 )
                 .formLogin(configurer->{
                     configurer.failureHandler(failureHandler).successHandler(successHandler).loginProcessingUrl("/login");
-                }).authenticationProvider(loginValidateAuthenticationProvider);
+                }).authenticationProvider(loginValidateAuthenticationProvider)
+                .addFilterBefore(preLoginFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }
 
