@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.youlanqiang.fazer.common.utils.SpringUtils;
+import top.youlanqiang.fazer.commons.utils.SpringUtils;
 
 /**
  * @author youlanqiang

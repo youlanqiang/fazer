@@ -1,4 +1,4 @@
-package top.youlanqiang.fazer.common.domain;
+package top.youlanqiang.fazer.commons.domain;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;

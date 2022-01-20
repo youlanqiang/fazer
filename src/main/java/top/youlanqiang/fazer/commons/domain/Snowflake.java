@@ -1,4 +1,4 @@
-package top.youlanqiang.fazer.common.domain;
+package top.youlanqiang.fazer.commons.domain;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;

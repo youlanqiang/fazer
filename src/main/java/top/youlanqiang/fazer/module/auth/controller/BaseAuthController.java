@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.youlanqiang.fazer.common.domain.AjaxResult;
+import top.youlanqiang.fazer.commons.domain.AjaxResult;
 import top.youlanqiang.fazer.module.auth.service.IBaseAuthService;
 
 /**

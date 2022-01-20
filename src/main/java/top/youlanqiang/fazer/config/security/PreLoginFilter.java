@@ -9,7 +9,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.filter.GenericFilterBean;
-import top.youlanqiang.fazer.common.utils.ParameterRequestWrapper;
+import top.youlanqiang.fazer.commons.utils.ParameterRequestWrapper;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

@@ -1,8 +1,8 @@
-package top.youlanqiang.fazer.common.controller;
+package top.youlanqiang.fazer.commons.controller;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import top.youlanqiang.fazer.common.domain.AjaxResult;
+import top.youlanqiang.fazer.commons.domain.AjaxResult;
 
 /**
  * @author youlanqiang

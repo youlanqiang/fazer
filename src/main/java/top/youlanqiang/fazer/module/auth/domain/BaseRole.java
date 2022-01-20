@@ -2,11 +2,9 @@ package top.youlanqiang.fazer.module.auth.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.apache.catalina.User;
-import top.youlanqiang.fazer.common.domain.BaseDomain;
+import top.youlanqiang.fazer.commons.domain.BaseDomain;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)

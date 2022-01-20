@@ -1,4 +1,4 @@
-package top.youlanqiang.fazer.common.utils;
+package top.youlanqiang.fazer.commons.utils;
 
 import org.springframework.context.ApplicationContext;
 

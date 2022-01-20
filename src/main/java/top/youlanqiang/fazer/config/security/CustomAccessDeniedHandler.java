@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
-import top.youlanqiang.fazer.common.domain.AjaxResult;
+import top.youlanqiang.fazer.commons.domain.AjaxResult;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;

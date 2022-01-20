@@ -1,11 +1,8 @@
-package top.youlanqiang.fazer.common.domain;
+package top.youlanqiang.fazer.commons.domain;
 
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Data
 public final class AjaxResult {

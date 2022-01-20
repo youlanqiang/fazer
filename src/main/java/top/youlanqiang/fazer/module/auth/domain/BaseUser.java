@@ -4,12 +4,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import top.youlanqiang.fazer.common.domain.BaseDomain;
+import top.youlanqiang.fazer.commons.domain.BaseDomain;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 // @Transient 在数据库中忽略这个字段

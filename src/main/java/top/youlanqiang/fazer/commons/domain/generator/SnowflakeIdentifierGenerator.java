@@ -1,9 +1,9 @@
-package top.youlanqiang.fazer.common.domain.generator;
+package top.youlanqiang.fazer.commons.domain.generator;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
-import top.youlanqiang.fazer.common.domain.Snowflake;
+import top.youlanqiang.fazer.commons.domain.Snowflake;
 
 import java.io.Serializable;
 

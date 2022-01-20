@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import top.youlanqiang.fazer.common.domain.AjaxResult;
+import top.youlanqiang.fazer.commons.domain.AjaxResult;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
