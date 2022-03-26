@@ -4,11 +4,13 @@ package top.youlanqiang.fazer.module.auth.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.youlanqiang.fazer.commons.domain.AjaxResult;
+import top.youlanqiang.fazer.commons.base.BaseController;
+import top.youlanqiang.fazer.module.auth.domain.BaseUser;
+import top.youlanqiang.fazer.module.auth.service.IBaseUserService;
 
 /**
  * @author youlanqiang
@@ -18,7 +20,8 @@ import top.youlanqiang.fazer.commons.domain.AjaxResult;
 @RestController
 @RequestMapping("/user")
 @Slf4j
-public class BaseUserController {
+@AllArgsConstructor
+public class BaseUserController extends BaseController<BaseUser, IBaseUserService> {
 
 
 
@@ -27,5 +30,7 @@ public class BaseUserController {
     public AjaxResult test(){
         return AjaxResult.success();
     }
+
+
 
 }

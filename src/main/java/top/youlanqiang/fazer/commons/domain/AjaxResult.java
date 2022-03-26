@@ -21,6 +21,14 @@ public final class AjaxResult {
         this.data = data;
     }
 
+    public static AjaxResult to(boolean bool){
+        if(bool){
+            return success();
+        }else{
+            return error();
+        }
+    }
+
     public static AjaxResult create(int code, String msg){
         return create(code, msg, null);
     }
