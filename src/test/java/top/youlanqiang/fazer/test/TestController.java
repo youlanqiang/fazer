@@ -1,6 +1,7 @@
 package top.youlanqiang.fazer.test;
 
-import org.junit.jupiter.api.Tag;
+
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +23,7 @@ public class TestController {
     PasswordEncoder encoder;
 
     @Test
-    @Tag("测试用例-1")
+    @DisplayName("测试用例-1")
     public void test1(){
         BaseUser user = new BaseUser();
 

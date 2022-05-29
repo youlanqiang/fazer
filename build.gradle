@@ -3,19 +3,21 @@
  */
 
 plugins {
+    id 'org.springframework.boot' version '2.7.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
-    id 'maven-publish'
-    id "io.spring.dependency-management" version "1.0.6.RELEASE"
-    id 'org.springframework.boot' version '2.6.0'
 }
 
 
 repositories {
+    maven {
+        url 'https://maven.aliyun.com/repository/public/'
+    }
+    maven {
+        url 'https://maven.aliyun.com/repository/spring/'
+    }
     mavenLocal()
     mavenCentral()
-    maven { url 'https://maven.aliyun.com/repository/public/' }
-    maven { url 'https://maven.aliyun.com/repository/spring/'}
-    maven { url "https://repo.spring.io/milestone" }
 }
 
 dependencies {
@@ -25,14 +27,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-devtools'
-    implementation 'org.projectlombok:lombok:1.18.16'
+    implementation 'com.h2database:h2:2.1.212'
     implementation 'com.google.guava:guava:31.0.1-jre'
-    implementation 'org.springdoc:springdoc-openapi-ui:1.5.12'
-    implementation 'org.springdoc:springdoc-openapi-security:1.5.12'
-    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+    implementation 'org.springdoc:springdoc-openapi-security:1.6.9'
+    implementation 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
     implementation group: 'org.apache.derby', name: 'derby', version: '10.15.2.0'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.3'
-    // https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.thymeleaf:thymeleaf:3.0.14.RELEASE'
 
 }
@@ -40,16 +42,14 @@ dependencies {
 group = 'top.youlanqiang'
 version = '1.0-SNAPSHOT'
 description = 'fazer'
-java.sourceCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = '17'
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
-        }
-    }
-}
+
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
 }

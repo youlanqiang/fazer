@@ -23,7 +23,7 @@ public class BaseDomain implements Serializable {
     @GeneratedValue(generator = "idGenerator",strategy = GenerationType.SEQUENCE)
     @GenericGenerator(
             name="idGenerator",
-            strategy="top.youlanqiang.fazer.common.domain.generator.SnowflakeIdentifierGenerator"
+            strategy="top.youlanqiang.fazer.commons.domain.generator.SnowflakeIdentifierGenerator"
     )
     private String uid;
 
