@@ -2,6 +2,7 @@ package top.youlanqiang.fazer.commons.base;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.youlanqiang.fazer.commons.domain.AjaxResult;
 import top.youlanqiang.fazer.commons.domain.BaseDomain;
@@ -14,8 +15,8 @@ import javax.annotation.Resource;
  */
 public class BaseController<T extends BaseDomain, S extends BaseService<T>> {
 
-    @Resource
-    S service;
+    @Autowired(required = false)
+    private S service;
 
 
     @Operation(security = @SecurityRequirement(name = "BearerAuth"))

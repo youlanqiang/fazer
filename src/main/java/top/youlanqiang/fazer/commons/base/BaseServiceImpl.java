@@ -1,10 +1,13 @@
 package top.youlanqiang.fazer.commons.base;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import top.youlanqiang.fazer.commons.domain.BaseDomain;
+
 
 import javax.annotation.Resource;
 
@@ -14,7 +17,8 @@ import javax.annotation.Resource;
  */
 public class BaseServiceImpl<T extends BaseDomain, P extends JpaRepository<T, String>> implements BaseService<T>{
 
-    @Resource
+
+    @Autowired(required = false)
     private P repository;
 
     @Override
