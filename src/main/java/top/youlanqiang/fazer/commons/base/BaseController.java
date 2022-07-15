@@ -1,46 +1,48 @@
 package top.youlanqiang.fazer.commons.base;
 
-import io.swagger.v3.oas.annotations.Operation;
+
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import top.youlanqiang.fazer.commons.domain.AjaxResult;
 import top.youlanqiang.fazer.commons.domain.BaseDomain;
 
-import javax.annotation.Resource;
 
 /**
  * @author youlanqiang
  * created in 2022/3/27 00:32
  */
+@SecurityRequirement(name = "bearerAuth")
 public class BaseController<T extends BaseDomain, S extends BaseService<T>> {
 
     @Autowired(required = false)
     private S service;
 
 
-    @Operation(security = @SecurityRequirement(name = "BearerAuth"))
     @PostMapping
-    public AjaxResult saveOrUpdate(@RequestBody T t){
-        return AjaxResult.success(service.saveOrUpdate(t));
+    public AjaxResult<Void> save(@RequestBody T t){
+        return AjaxResult.to(service.save(t));
     }
 
-    @Operation(security = @SecurityRequirement(name = "BearerAuth"))
+    @PutMapping
+    public AjaxResult<Void> update(@RequestBody T t){
+        return AjaxResult.to(service.update(t));
+    }
+
     @GetMapping("/{id}")
-    public AjaxResult getById(@PathVariable String id){
+    public AjaxResult<T> getById(@PathVariable String id){
         return AjaxResult.success(service.getById(id));
     }
 
-    @Operation(security = @SecurityRequirement(name = "BearerAuth"))
     @DeleteMapping("/{id}")
-    public AjaxResult removeById(@PathVariable String id){
+    public AjaxResult<Void> removeById(@PathVariable String id){
         return AjaxResult.to(service.deleteById(id));
     }
-
-    @Operation(security = @SecurityRequirement(name = "BearerAuth"))
+    
     @GetMapping("/page/{pageNum}/{pageSize}")
-    public AjaxResult page(@PathVariable Integer pageNum,
-                           @PathVariable Integer pageSize){
+    public AjaxResult<Page<T>> page(@PathVariable Integer pageNum,
+                                 @PathVariable Integer pageSize){
         return AjaxResult.success(service.page(pageNum, pageSize));
     }
 

@@ -10,8 +10,10 @@ import top.youlanqiang.fazer.commons.domain.BaseDomain;
 
 public  interface  BaseService<T extends BaseDomain> {
 
-    T saveOrUpdate(T t);
 
+    boolean save(T t);
+
+    boolean update(T t);
 
     boolean deleteById(String id);
 

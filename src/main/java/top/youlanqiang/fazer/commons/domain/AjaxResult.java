@@ -5,23 +5,23 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 @Data
-public final class AjaxResult {
+public final class AjaxResult<T> {
 
     private int code;
 
     private String msg;
 
-    private Object data;
+    private T data;
 
     public AjaxResult(){}
 
-    public AjaxResult(int code, String msg, Object data){
+    public AjaxResult(int code, String msg, T data){
         this.code = code;
         this.msg = msg;
         this.data = data;
     }
 
-    public static AjaxResult to(boolean bool){
+    public static AjaxResult<Void> to(boolean bool){
         if(bool){
             return success();
         }else{
@@ -29,35 +29,35 @@ public final class AjaxResult {
         }
     }
 
-    public static AjaxResult create(int code, String msg){
+    public static AjaxResult<Void> create(int code, String msg){
         return create(code, msg, null);
     }
 
-    public static AjaxResult create(int code, String msg, Object data){
-        return new AjaxResult(code, msg, data);
+    public static <T> AjaxResult<T> create(int code, String msg, T data){
+        return new AjaxResult<>(code, msg, data);
     }
 
-    public static AjaxResult success(String msg, Object data){
+    public static <T> AjaxResult<T> success(String msg, T data){
         return create(HttpStatus.OK.value(), msg, data);
     }
 
-    public static AjaxResult success(Object data){
+    public static <T> AjaxResult<T> success(T data){
         return success(HttpStatus.OK.getReasonPhrase(), data);
     }
 
-    public static AjaxResult success(){
+    public static AjaxResult<Void> success(){
         return success(null);
     }
 
-    public static AjaxResult error(String msg, Object data){
+    public static <T> AjaxResult<T> error(String msg, T data){
         return create(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg, data);
     }
 
-    public static AjaxResult error(Object data){
+    public static <T> AjaxResult<T> error(T data){
         return error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), data);
     }
 
-    public static AjaxResult error(){
+    public static AjaxResult<Void> error(){
         return error(null);
     }
 

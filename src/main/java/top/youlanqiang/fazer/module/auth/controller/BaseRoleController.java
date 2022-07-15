@@ -1,7 +1,9 @@
 package top.youlanqiang.fazer.module.auth.controller;
 
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Tag(name = "角色管理", description = "角色管理")
 @RequestMapping("/role")
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @Slf4j
+@AllArgsConstructor
 public class BaseRoleController {
 
 }

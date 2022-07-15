@@ -32,6 +32,25 @@ public class BaseAuth extends BaseDomain implements GrantedAuthority {
     @Schema(description = "权限标识")
     private String authority;
 
+    @Column(name = "icon")
+    @Schema(description = "icon图标")
+    private String icon;
+
+    @Enumerated(EnumType.STRING)
+    @Schema(description = "权限类型")
+    private AuthType authType;
+
+    @Column(name = "component_path")
+    @Schema(description = "组件路径")
+    private String componentPath;
+
+    @Column(name = "route_path")
+    @Schema(description = "路由地址")
+    private String routePath;
+
+    @Column(name = "show", columnDefinition="tinyint(1) default 1")
+    @Schema(description = "是否显示")
+    private boolean show = true;
 
     @Column(name = "sort", columnDefinition = "int default 0")
     private Integer sort;
@@ -50,8 +69,21 @@ public class BaseAuth extends BaseDomain implements GrantedAuthority {
 
 
     public enum AuthType{
+        /**
+         * 菜单
+         */
         MENU,
+        /**
+         * 菜单项
+         */
+        SUBMENU,
+        /**
+         * 按钮
+         */
         BUTTON,
+        /**
+         * URL权限
+         */
         URL
     }
 }

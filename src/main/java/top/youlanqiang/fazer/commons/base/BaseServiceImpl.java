@@ -1,15 +1,14 @@
 package top.youlanqiang.fazer.commons.base;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.util.Assert;
 import top.youlanqiang.fazer.commons.domain.BaseDomain;
 
 
-import javax.annotation.Resource;
 
 /**
  * @author youlanqiang
@@ -21,9 +20,18 @@ public class BaseServiceImpl<T extends BaseDomain, P extends JpaRepository<T, St
     @Autowired(required = false)
     private P repository;
 
+
     @Override
-    public T saveOrUpdate(T t) {
-        return repository.save(t);
+    public boolean save(T t) {
+        repository.save(t);
+        return true;
+    }
+
+    @Override
+    public boolean update(T t) {
+        Assert.notNull(t.getUid(),"uid is null");
+        repository.save(t);
+        return true;
     }
 
     @Override
