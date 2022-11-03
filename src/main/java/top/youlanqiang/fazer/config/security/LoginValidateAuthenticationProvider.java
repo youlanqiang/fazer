@@ -1,11 +1,14 @@
 package top.youlanqiang.fazer.config.security;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -16,13 +19,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 /**
  * @author youlanqiang
  * created in 2021/11/2 8:34 下午
  */
-@Component
 @Slf4j
+@AllArgsConstructor
 public class LoginValidateAuthenticationProvider implements AuthenticationProvider {
 
     PasswordEncoder passwordEncoder;
@@ -30,13 +35,6 @@ public class LoginValidateAuthenticationProvider implements AuthenticationProvid
     UserDetailsService userDetailsService;
 
     private final UserDetailsChecker checker =  new AccountStatusUserDetailsChecker();
-
-    @Lazy
-    @Autowired
-    public LoginValidateAuthenticationProvider(PasswordEncoder encoder,@Qualifier("baseUserServiceImpl") UserDetailsService userDetailsService){
-        this.passwordEncoder =encoder;
-        this.userDetailsService = userDetailsService;
-    }
 
 
     @Override
@@ -52,7 +50,7 @@ public class LoginValidateAuthenticationProvider implements AuthenticationProvid
             //checker.check(userDetails);
             return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         }
-        return null;
+        throw new BadCredentialsException("密码错误.");
     }
 
     @Override

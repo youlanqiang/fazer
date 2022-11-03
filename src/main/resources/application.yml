@@ -21,7 +21,7 @@ jwt:
   public.key: classpath:app.pub
 springdoc:
   swagger-ui:
-    path: /swagger-ui.html
+    path: /doc.html
   api-docs:
     resolve-schema-properties: true
   show-login-endpoint: true

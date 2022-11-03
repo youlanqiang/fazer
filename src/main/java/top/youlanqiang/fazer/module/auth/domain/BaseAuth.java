@@ -48,9 +48,9 @@ public class BaseAuth extends BaseDomain implements GrantedAuthority {
     @Schema(description = "路由地址")
     private String routePath;
 
-    @Column(name = "show", columnDefinition="tinyint(1) default 1")
+    @Column(name = "display", columnDefinition="boolean default true")
     @Schema(description = "是否显示")
-    private boolean show = true;
+    private boolean display = true;
 
     @Column(name = "sort", columnDefinition = "int default 0")
     private Integer sort;
