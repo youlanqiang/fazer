@@ -1,13 +1,13 @@
-package top.youlanqiang.fazer.commons.base;
+package top.youlanqiang.fazer.module.[(${packageName})].controller;
 
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import top.youlanqiang.fazer.commons.base.BaseService;
 import top.youlanqiang.fazer.commons.domain.AjaxResult;
 import top.youlanqiang.fazer.commons.domain.BaseDomain;
-
 
 /**
  * @author youlanqiang
@@ -39,10 +39,10 @@ public class BaseController<T extends BaseDomain, S extends BaseService<T>> {
     public AjaxResult<Void> removeById(@PathVariable String id){
         return AjaxResult.to(service.deleteById(id));
     }
-    
+
     @GetMapping("/page/{pageNum}/{pageSize}")
     public AjaxResult<Page<T>> page(@PathVariable Integer pageNum,
-                                 @PathVariable Integer pageSize){
+                                    @PathVariable Integer pageSize){
         return AjaxResult.success(service.page(pageNum, pageSize));
     }
 
