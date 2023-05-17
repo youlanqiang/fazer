@@ -13,10 +13,10 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @SecurityScheme(
-        name = "BearerAuth",
+        name = "Authorization",
         type = SecuritySchemeType.HTTP,
         bearerFormat = "JWT",
-        scheme = "bearer"
+        scheme = "Bearer"
 )
 public class DocConfig {
 

@@ -1,6 +1,6 @@
 
 # h2 database
-fazer.mv.db
+*.db
 # derby database
 /fazerdb
 /logs

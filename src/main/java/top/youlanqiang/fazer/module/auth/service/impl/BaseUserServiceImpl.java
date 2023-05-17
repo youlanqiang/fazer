@@ -1,6 +1,7 @@
 package top.youlanqiang.fazer.module.auth.service.impl;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import top.youlanqiang.fazer.module.auth.service.IBaseUserService;
  */
 @Service
 @AllArgsConstructor
+@Slf4j
 public class BaseUserServiceImpl extends BaseServiceImpl<BaseUser, BaseUserRepository> implements IBaseUserService {
 
 
