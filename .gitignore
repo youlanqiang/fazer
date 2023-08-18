@@ -174,3 +174,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+fazer-server/.gradle
+fazer-server/bin
+fazer-web/.vscode

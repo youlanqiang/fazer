@@ -1,3 +1,0 @@
-2023-03-01 00:31:54 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "alter table base_auth add column show tinyint[*](1) default 1"; SQL statement:
-alter table base_auth add column show tinyint(1) default 1 [42000-212]
