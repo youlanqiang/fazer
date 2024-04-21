@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-FazerApplication<fazer-backend>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "top.youlanqiang.fazer.FazerApplication",
+            "projectName": "fazer-backend",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
